@@ -35,8 +35,21 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import mockOrders from "./orders.js";
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+
+window.Pusher = Pusher;
+
+const echo = new Echo({
+    broadcaster: 'reverb',
+    key: import.meta.env.VITE_REVERB_APP_KEY,
+    wsHost: window.location.hostname,
+    wsPort: import.meta.env.VITE_REVERB_PORT,
+    forceTLS: import.meta.env.VITE_REVERB_SCHEME === 'https',
+    enabledTransports: ['ws'],
+});
 
 const orders = ref(mockOrders);
 
@@ -45,4 +58,14 @@ const statusToStyleClasses = new Map([
     ["Cooking", {text: "text-orange-500", ping: "bg-orange-400 opacity-75", dot: "bg-orange-500"}],
     ["Ready", {text: "text-green-500", ping: "bg-green-400 opacity-75", dot: "bg-green-500"}]
 ]);
+
+onMounted(() => {
+    echo.channel("statuses")
+        .listen(".OrderEvent", (e) => {
+            const orderToUpdate = orders.value.find(order => order.id === e.orderId);
+            if (orderToUpdate) {
+                orderToUpdate.status = e.statusName;
+            }
+        });
+});
 </script>
