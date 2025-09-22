@@ -60,11 +60,11 @@ const statusToStyleClasses = new Map([
 ]);
 
 onMounted(() => {
-    echo.channel("statuses")
-        .listen(".OrderEvent", (e) => {
-            const orderToUpdate = orders.value.find(order => order.id === e.orderId);
+    echo.channel("order-status-update")
+        .listen(".OrderUpdate", (e) => {
+            const orderToUpdate = orders.value.find(order => order.id === e.id);
             if (orderToUpdate) {
-                orderToUpdate.status = e.statusName;
+                orderToUpdate.status = e.status;
             }
         });
 });
