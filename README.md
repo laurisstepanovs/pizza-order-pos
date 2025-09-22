@@ -4,6 +4,17 @@ POS module with dynamic pizza order status updates using **Laravel 12**, **Vue 3
 
 ---
 
+## Requirements
+
+Before running this project, make sure you have installed the following:
+
+- [PHP >= 8.1](https://www.php.net/manual/en/install.php)
+- [Composer](https://getcomposer.org/download/)
+- [Node.js >= 18](https://nodejs.org/en/download/) and npm
+- [Reverb (Laravel WebSocket server)](https://laravel.com/docs/12.x/reverb)
+
+---
+
 ## Getting Started
 
 1. Install PHP dependencies:
@@ -51,7 +62,7 @@ POS module with dynamic pizza order status updates using **Laravel 12**, **Vue 3
    ```bash
    php artisan queue:work
    ```
-
+   
 ---
 
 ## API Overview
@@ -76,3 +87,4 @@ Broadcasts a new order status in real-time.
     "id": 3,
     "status": "Ready"
 }
+```
