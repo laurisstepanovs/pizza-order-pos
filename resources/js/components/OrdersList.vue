@@ -1,21 +1,22 @@
 <template>
-    <table class="mx-auto">
-        <thead>
-        <tr class="border-b-1 p-5">
-            <th class="p-5">ID</th>
-            <th class="p-5">Description</th>
-            <th class="p-5">Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="order in orders" :key="order.id" class="border-b-1">
-            <td class="p-5">{{ order.id }}</td>
-            <td class="p-5">{{ order.name }}</td>
-            <td class="p-5" :title="`Order: ${order.status}`">
-                <div
-                    class="flex items-center gap-[10px] font-semibold cursor-pointer"
-                    :class="statusToStyleClasses.get(order.status).text"
-                >
+    <div class="mx-auto mt-10 border-rounded text-gray-600 bg-white">
+        <table>
+            <thead>
+            <tr class="border-b-1 border-gray-400 p-5">
+                <th class="p-5">ID</th>
+                <th class="p-5">Description</th>
+                <th class="p-5">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="order in orders" :key="order.id" class="border-b-1 border-gray-400">
+                <td class="p-5">#{{ order.id }}</td>
+                <td class="p-5">🍕 {{ order.name }}</td>
+                <td class="p-5" :title="`Order: ${order.status}`">
+                    <div
+                        class="flex items-center gap-[10px] font-semibold cursor-pointer"
+                        :class="statusToStyleClasses.get(order.status).text"
+                    >
                     <span class="relative flex size-3">
                         <span
                             class="absolute inline-flex h-full w-full animate-ping rounded-full"
@@ -26,12 +27,13 @@
                             :class="statusToStyleClasses.get(order.status).dot"
                         ></span>
                     </span>
-                    <span>{{ order.status }}</span>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                        <span>{{ order.status }}</span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
 
 <script setup>
