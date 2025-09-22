@@ -1,11 +1,12 @@
 <template>
-    <div class="mx-auto mt-10 border-rounded text-gray-600 bg-white">
+    <div class="mx-auto mt-10 border-rounded text-gray-600 bg-white max-w-fit px-7 py-5 rounded-2xl
+">
         <table>
             <thead>
-            <tr class="border-b-1 border-gray-400 p-5">
-                <th class="p-5">ID</th>
-                <th class="p-5">Description</th>
-                <th class="p-5">Status</th>
+            <tr class="border-b-1 border-gray-400">
+                <th class="p-2">ID</th>
+                <th class="p-2">Description</th>
+                <th class="p-2">Status</th>
             </tr>
             </thead>
             <tbody>
@@ -39,19 +40,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import mockOrders from "./orders.js";
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-
-window.Pusher = Pusher;
-
-const echo = new Echo({
-    broadcaster: 'reverb',
-    key: import.meta.env.VITE_REVERB_APP_KEY,
-    wsHost: window.location.hostname,
-    wsPort: import.meta.env.VITE_REVERB_PORT,
-    forceTLS: import.meta.env.VITE_REVERB_SCHEME === 'https',
-    enabledTransports: ['ws'],
-});
+import echo from "../plugins/laravel-echo.js";
 
 const orders = ref(mockOrders);
 
